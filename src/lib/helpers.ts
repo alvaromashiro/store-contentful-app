@@ -54,15 +54,15 @@ export const getEntriesByContentType = async (
 
     let entries = await contentfulClient.getEntries(params);
 
-    return entries.items[0];
+    return entries.items;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getFields = (obj) => {
-  if (obj.sections && Array.isArray(obj.sections)) {
-    return obj.sections[0].fields;
+export const getFields = (obj: contentful.Entry) => {
+  if (Array.isArray(obj) && obj.length === 1) {
+    return obj[0].fields;
   }
-  return obj?.fields;
+  return obj.fields;
 };
